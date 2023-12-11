@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MI APP DE TAREAS</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='main.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/united/bootstrap.min.css" integrity="sha384-JW3PJkbqVWtBhuV/gsuyVVt3m/ecRJjwXC3gCXlTzZZV+zIEEl6AnryAriT7GWYm" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Indie+Flower&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.2/css/fontawesome.min.css" integrity="sha384-X8QTME3FCg1DLb58++lPvsjbQoCT9bp3MsUU3grbIny/3ZwUJkRNO8NPW6zqzuW9" crossorigin="anonymous">
+    <style>
+        .titulo,
+        .input-personalizado,
+        .texto-tarea {
+            font-family: 'Indie Flower', cursive;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <main class="container p-4">
+        <h1 class="display-4 text-center mt-5 titulo"> MI APP DE TAREAS🗒️</h1>
+
+        <div class="row">
+            <div class="col-md-8 offset-md-2 my-auto">
+                <div class="card">
+                    <div class="card-header">
+                    </div>
+                    <div class="card-body">
+                        <form action="/crear-tarea" method="post">
+                            <div class="form-group">
+                                <input type="text" name="contenido-tarea" placeholder="Tarea" class="form-control input-personalizado texto-tarea" autofocus>
+
+                            <button type="submit" class="btn btn-primary btn-block">
+                                Guardar
+                            </button>
+                        </form>
+                        <div class="card-body"> <!-- Las etiquetas <ul> y <li> sirven para crear listas en HTML -->
+                            <ul class="list-group"> <!-- Gracias a Jinja se puede introducir código Python en nuestro HTML y Python se encarga de ejecutarlo e interpretarlo -->
+                                {% for tarea in lista_de_tareas %}
+                                <li class="list-group-item">
+                                    <a href="" style="text-decoration-none" class="texto-tarea">
+                                        <span class="{% if tarea.hecha==true %} tarea-hecha {% endif %}"> {{tarea.contenido}} </span>
+                                    <a href="/tarea-hecha/{{tarea.id}}" style="text-decoration:none"> <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="green" class="bi bi-check2-square" viewBox="0 0 16 16"> <path d="M3 14.5A1.5 1.5 0 0 1 1.5 13V3A1.5 1.5 0 0 1 3 1.5h8a.5.5 0 0 1 0 1H3a.5.5 0 0 0-.5.5v10a.5.5 0 0 0 .5.5h10a.5.5 0 0 0 .5-.5V8a.5.5 0 0 1 1 0v5a1.5 1.5 0 0 1-1.5 1.5H3z"/> <path d="m8.354 10.354 7-7a.5.5 0 0 0-.708-.708L8 9.293 5.354 6.646a.5.5 0 1 0-.708.708l3 3a.5.5 0 0 0 .708 0z"/> </svg> </a>
+
+                                    <a href="/eliminar-tarea/{{tarea.id}}" style="text-decoration:none"> <svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="red" class="bi bi-trash" viewBox="0 0 16 16"> <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z"/> <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4 4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z"/> </svg> </a>
+                                </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
